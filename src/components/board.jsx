@@ -7,24 +7,23 @@ export const Board = () => {
         [1,2,3],
         [4,5,6],
         [7,8,9]
-    ]
+    ];
 
     const [gameBoard, setGameBoard] = useState( initialState )
 
     const handleClick = (rowId, cellId) => {
-        console.log('click')
-        const updatedGameboard = gameBoard;
+        // DEEP COPY REQUIRED DUE TO MATRIX
+        const updatedGameboard = JSON.parse(JSON.stringify(gameBoard));
+;
 
-        console.log('click update', updatedGameboard)
+        updatedGameboard[rowId][cellId] = (gameBoard[rowId][cellId] * 2);
 
-
-        updatedGameboard[rowId][cellId] = updatedGameboard[rowId][cellId] * 2 
-
-        console.log('click update 23', updatedGameboard)
-
-        setGameBoard(null);
-        setGameBoard(updatedGameboard)
+        setGameBoard(updatedGameboard);
     }
+
+    useEffect(() => {
+        console.log('board changed');
+    }, [gameBoard]);
 
     return (
         
